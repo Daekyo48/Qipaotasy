@@ -1,0 +1,60 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PoolManager : MonoBehaviour
+{
+    public static PoolManager Instance { get; private set; }
+
+    [Header("# Data")]
+    [SerializeField] private PoolData[] _poolData;
+
+    private readonly Dictionary<PoolType, Queue<GameObject>> _pools = new();
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        CreatePools();
+    }
+
+    private void CreatePools()
+    {
+        GameObject rootObject = new("Pool Objects");
+        rootObject.transform.position = Vector3.one * 10;
+
+        foreach (PoolData data in _poolData)
+        {
+            _pools[data.Type] = new Queue<GameObject>();
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                GameObject poolObject = Instantiate(data.Prefab, rootObject.transform);
+                
+                poolObject.SetActive(false);
+                _pools[data.Type].Enqueue(poolObject);
+            }
+        }
+    }
+
+    public GameObject Get(PoolType type)
+    {
+        if (_pools[type].TryDequeue(out GameObject selectedObject))
+        {
+            selectedObject.SetActive(true);
+        }
+
+        return selectedObject;
+    }
+
+    public void Release(PoolType type, GameObject targetObject)
+    {
+        targetObject.SetActive(false);
+        _pools[type].Enqueue(targetObject);
+    }
+}
