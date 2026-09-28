@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class NoteJudge : MonoBehaviour
 {
+    [Header("# Event Channel")]
+    [SerializeField] private JudgmentTypeEventChannel _judgeEvent;
+
     [Header("# Settings")]
     [SerializeField] private int _perfectRange = 30;
     [SerializeField] private int _greatRange = 60;
@@ -33,14 +36,16 @@ public class NoteJudge : MonoBehaviour
         double inputTime = GameManager.Instance.GetCurrentTime();
         double ms = Math.Abs(inputTime - targetNote.Data.JudgeTime) * 1000;
 
-        JudgmentType result = EvaluateJudgment(ms);
-        if (result != JudgmentType.None)
+        JudgmentType judgment = EvaluateJudgment(ms);
+        if (judgment != JudgmentType.None)
         {
             _activeNotes[Lane].Dequeue();
             PoolManager.Instance.Release(PoolType.Note, targetNote.gameObject);
 
+            _judgeEvent.Raise(judgment);
+
             // 임시 로그
-            Debug.Log($"{result}\nJudge Time: {targetNote.Data.JudgeTime}, Input Time: {inputTime}");
+            Debug.Log($"{judgment}\nJudge Time: {targetNote.Data.JudgeTime}, Input Time: {inputTime}");
         }
     }
 

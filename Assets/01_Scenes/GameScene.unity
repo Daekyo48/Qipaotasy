@@ -2090,6 +2090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c4a8558ddc3a141a59ae0bae327c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NoteJudge
+  _judgeEvent: {fileID: 11400000, guid: 3efc9802b5b322d4c9d67cc940c68af2, type: 2}
   _perfectRange: 30
   _greatRange: 60
   _goodRange: 100
@@ -2119,8 +2120,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1600314171}
   - component: {fileID: 1600314172}
+  - component: {fileID: 1600314173}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: TensionGage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2194,10 +2196,25 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1600314173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600314170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a5a1a16f50eb340b9587fe99a84cd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TensionGaugeUI
+  _judgeEvent: {fileID: 11400000, guid: 3efc9802b5b322d4c9d67cc940c68af2, type: 2}
+  _tensionGauge: {fileID: 1600314172}
+  _maxValue: 100
 --- !u!1 &1675628498
 GameObject:
   m_ObjectHideFlags: 0
