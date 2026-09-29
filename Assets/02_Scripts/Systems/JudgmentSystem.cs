@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoteJudge : MonoBehaviour
+public class JudgmentSystem : MonoBehaviour
 {
+    [Header("# Event Channel")]
+    [SerializeField] private JudgmentTypeEventChannel _judgeEvent;
+
     [Header("# Settings")]
     [SerializeField] private int _perfectRange = 30;
     [SerializeField] private int _greatRange = 60;
@@ -20,28 +23,53 @@ public class NoteJudge : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        InputManager.Instance.JudgeInputEvent += TryJudge;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.JudgeInputEvent -= TryJudge;
+    }
+
     public void RegisterActiveNote(int lane, Note note)
     {
+        note.MissEvent += ProcessJudgment;
+
         _activeNotes[lane].Enqueue(note);
     }
 
-    public void Judge(int Lane)
+    private void TryJudge(int lane)
     {
-        if (_activeNotes[Lane].Count <= 0) return;
+        if (_activeNotes[lane].Count == 0) return;
 
-        Note targetNote = _activeNotes[Lane].Peek();
+        Note targetNote = _activeNotes[lane].Peek();
         double inputTime = GameManager.Instance.GetCurrentTime();
         double ms = Math.Abs(inputTime - targetNote.Data.JudgeTime) * 1000;
 
-        JudgmentType result = EvaluateJudgment(ms);
-        if (result != JudgmentType.None)
+        JudgmentType judgment = EvaluateJudgment(ms);
+        if (judgment != JudgmentType.None)
         {
-            _activeNotes[Lane].Dequeue();
-            PoolManager.Instance.Release(PoolType.Note, targetNote.gameObject);
+            targetNote.IsJudged = true;
+
+            ProcessJudgment(lane, judgment);
 
             // 임시 로그
-            Debug.Log($"{result}\nJudge Time: {targetNote.Data.JudgeTime}, Input Time: {inputTime}");
+            Debug.Log($"{judgment}\nJudge Time: {targetNote.Data.JudgeTime}, Input Time: {inputTime}");
         }
+    }
+
+    // 이 저주받은 구조는 조만간 손을 볼 것.
+    private void ProcessJudgment(int lane, JudgmentType judgment)
+    {
+        Note note = _activeNotes[lane].Peek();
+
+        note.MissEvent -= ProcessJudgment;
+        PoolManager.Instance.Release(PoolType.Note, note.gameObject);
+
+        _activeNotes[lane].Dequeue();
+        _judgeEvent.Raise(judgment);
     }
 
     private JudgmentType EvaluateJudgment(double ms)

@@ -1,34 +1,41 @@
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    [Header("# References")]
-    [SerializeField] private NoteJudge _judge;
+    public static InputManager Instance { get; private set; }
 
+    public event Action<int> JudgeInputEvent;
+    
     private InputActions _inputAction;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         _inputAction = new InputActions();
     }
 
     private void OnEnable()
     {
         _inputAction.Enable();
-        _inputAction.Game.Judge.performed += OnJudge;
+        _inputAction.Game.FirstLane.performed += _ => JudgeInputEvent(0);
+        _inputAction.Game.SecondLane.performed += _ => JudgeInputEvent(1);
+        _inputAction.Game.ThirdLane.performed += _ => JudgeInputEvent(2);
+        _inputAction.Game.FourthLane.performed += _ => JudgeInputEvent(3);
     }
 
     private void OnDisable()
     {
         _inputAction.Disable();
-        _inputAction.Game.Judge.performed -= OnJudge;
-    }
-
-    private void OnJudge(InputAction.CallbackContext context)
-    {
-        int lane = context.action.GetBindingIndexForControl(context.control);
-
-        _judge.Judge(lane);
+        _inputAction.Game.FirstLane.performed -= _ => JudgeInputEvent(0);
+        _inputAction.Game.SecondLane.performed -= _ => JudgeInputEvent(1);
+        _inputAction.Game.ThirdLane.performed -= _ => JudgeInputEvent(2);
+        _inputAction.Game.FourthLane.performed -= _ => JudgeInputEvent(3);
     }
 }

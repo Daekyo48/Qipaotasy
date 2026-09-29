@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 
 public class Note : MonoBehaviour
 {
+    public event Action<int, JudgmentType> MissEvent;
+
     public NoteData Data { get; private set; }
+    public bool IsJudged { get; set; }
 
     private Vector3 _spawnPosition;
     private Vector3 _judgePosition;
@@ -24,5 +28,12 @@ public class Note : MonoBehaviour
         float progress = (float)(elapsed / _travelDuration);
 
         transform.position = Vector3.LerpUnclamped(_spawnPosition, _judgePosition, progress);
+    }
+
+    private void OnBecameInvisible()
+    {
+        if (IsJudged) return;
+
+        MissEvent.Invoke(Data.Lane, JudgmentType.Miss);
     }
 }

@@ -7,9 +7,49 @@
             "id": "7609afce-5d5d-46d2-993c-9347b9b88984",
             "actions": [
                 {
-                    "name": "Judge",
-                    "type": "PassThrough",
+                    "name": "FirstLane",
+                    "type": "Button",
                     "id": "966d7e96-a8d7-4ee5-a014-60b2c0f9a6d5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "SecondLane",
+                    "type": "Button",
+                    "id": "a711db80-b55e-4c20-8812-d839a47f2c17",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "ThirdLane",
+                    "type": "Button",
+                    "id": "fca90ceb-8907-43da-a854-b723cfeafff0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "FourthLane",
+                    "type": "Button",
+                    "id": "beab2296-cd0f-4fef-b021-eabc90fcdbc0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Skill",
+                    "type": "Button",
+                    "id": "9a56f394-22c4-43f7-8e87-3250e0783283",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -25,42 +65,126 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Judge",
+                    "action": "FirstLane",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "57ff9482-f1e2-4d69-8c7c-802c15f317ed",
+                    "id": "65eeb8b7-50dc-49c7-8523-f05215239c46",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Judge",
+                    "action": "SecondLane",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "b777b26a-a408-4b1d-b053-a6255eb62a28",
+                    "id": "67e71c93-2a6d-40cb-8ddf-1363fbdf73ce",
                     "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Judge",
+                    "action": "ThirdLane",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "39647ae6-f72a-403d-aaa7-88f9d567607c",
+                    "id": "a0054060-cdaf-49a9-8953-3a77eb9f4c1c",
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Judge",
+                    "action": "FourthLane",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dcea5504-3b78-4765-aaed-33f9e4922beb",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Obstacle",
+            "id": "6b853ba1-5df6-49c5-ba60-23c1b74a1146",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "54134af5-9665-494c-98c3-1e731bf51e15",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "WASD",
+                    "id": "29f8af9a-60a5-4c85-a391-6e9966afd42d",
+                    "path": "Dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "487e15db-0666-4365-b0a0-58b2625b4115",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "554a1713-a352-40da-b89c-b7f12a4a5958",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "da23800c-f0e7-4019-8c42-e43e8987984f",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "3862e8e6-1099-40da-8d44-577b390988fc",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
