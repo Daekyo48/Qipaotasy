@@ -20,7 +20,6 @@ public class PoolManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
 
         CreatePools();

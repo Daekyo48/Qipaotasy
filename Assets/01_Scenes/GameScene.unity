@@ -119,6 +119,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &35286339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 35286340}
+  - component: {fileID: 35286341}
+  m_Layer: 0
+  m_Name: SkillSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &35286340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35286339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 256236282}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &35286341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35286339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14551b01425fbe4c863930ea3ebc1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillSystem
+  _judgeEvent: {fileID: 11400000, guid: 3efc9802b5b322d4c9d67cc940c68af2, type: 2}
+  _maxValue: 100
 --- !u!1 &91594485
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +291,39 @@ Transform:
   - {fileID: 353688973}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &256236281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 256236282}
+  m_Layer: 0
+  m_Name: Systems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &256236282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256236281}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1556141322}
+  - {fileID: 35286340}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &297089644
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +355,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicManager
   _musicData: {fileID: 11400000, guid: 10b8e22f7b444e940b8269a26fbdf8c8, type: 2}
-  _audioSource: {fileID: 297089646}
 --- !u!82 &297089646
 AudioSource:
   m_ObjectHideFlags: 0
@@ -398,7 +476,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 331430546}
-  - component: {fileID: 331430545}
+  - component: {fileID: 331430547}
   m_Layer: 0
   m_Name: NoteSpawner
   m_TagString: Untagged
@@ -406,30 +484,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &331430545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 331430544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd626e97755f5134daec4ae9424e25bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NoteSpawner
-  _judge: {fileID: 1556141321}
-  _startPoints:
-  - {fileID: 764153357}
-  - {fileID: 460542491}
-  - {fileID: 2143624802}
-  - {fileID: 353688973}
-  _targetPoints:
-  - {fileID: 418407452}
-  - {fileID: 345917015}
-  - {fileID: 1353230990}
-  - {fileID: 1021688319}
-  _travelDuration: 1.5
 --- !u!4 &331430546
 Transform:
   m_ObjectHideFlags: 0
@@ -445,6 +499,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &331430547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331430544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd626e97755f5134daec4ae9424e25bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoteSpawner
+  _judgement: {fileID: 1556141321}
+  _startPoints:
+  - {fileID: 764153357}
+  - {fileID: 460542491}
+  - {fileID: 2143624802}
+  - {fileID: 353688973}
+  _targetPoints:
+  - {fileID: 418407452}
+  - {fileID: 345917015}
+  - {fileID: 1353230990}
+  - {fileID: 1021688319}
+  _travelDuration: 1.5
 --- !u!1 &345917014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,7 +1634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb4d9c4c2b10c74fac9e124b8da6447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
-  _judge: {fileID: 1556141321}
 --- !u!1 &931882330
 GameObject:
   m_ObjectHideFlags: 0
@@ -2072,7 +2149,7 @@ GameObject:
   - component: {fileID: 1556141322}
   - component: {fileID: 1556141321}
   m_Layer: 0
-  m_Name: NoteJudge
+  m_Name: JudgmentSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2108,7 +2185,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 256236282}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1600314170
 GameObject:
@@ -2539,10 +2616,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 331430546}
+  - {fileID: 256236282}
   - {fileID: 931882331}
   - {fileID: 1003986707}
-  - {fileID: 331430546}
-  - {fileID: 1556141322}
   - {fileID: 2015395773}
   - {fileID: 164304051}
   - {fileID: 502407709}

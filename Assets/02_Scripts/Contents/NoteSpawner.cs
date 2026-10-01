@@ -4,7 +4,7 @@ using UnityEngine;
 public class NoteSpawner : MonoBehaviour
 {
     [Header("# References")]
-    [SerializeField] private NoteJudge _judge;
+    [SerializeField] private JudgmentSystem _judgement;
 
     [Header("# Settings")]
     [SerializeField] private Transform[] _startPoints;
@@ -13,12 +13,12 @@ public class NoteSpawner : MonoBehaviour
 
     private Queue<NoteData> _notes;
 
-    public void Awake()
+    private void Awake()
     {
         _notes = new Queue<NoteData>(GameManager.Instance.MusicData.Notes);
     }
 
-    public void Update()
+    private void Update()
     {
         double currentTime = GameManager.Instance.GetCurrentTime();
 
@@ -37,6 +37,6 @@ public class NoteSpawner : MonoBehaviour
         Note note = noteObject.GetComponent<Note>();
 
         note.Initialize(data, startPoint, targetPoint, _travelDuration);
-        _judge.RegisterActiveNote(data.Lane, note);
+        _judgement.RegisterActiveNote(data.Lane, note);
     }
 }

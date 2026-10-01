@@ -7,12 +7,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("# Data")]
-    // 추후 JSON 파싱 방식으로 변경
-    [SerializeField] private MusicData _musicData;
+    [SerializeField] private MusicData _musicData;  // 추후 JSON 파싱 방식으로 변경
     public MusicData MusicData => _musicData;
 
-    [Header("# Components")]
-    [SerializeField] private AudioSource _audioSource;
+    private ScoreData _scoreData = new ScoreData();
+    public ScoreData ScoreData => _scoreData;
+
+    private AudioSource _audioSource;
 
     private double _musicStartTime;
 
@@ -23,8 +24,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
+
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
