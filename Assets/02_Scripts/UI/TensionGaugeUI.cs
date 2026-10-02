@@ -4,44 +4,28 @@ using UnityEngine.UI;
 public class TensionGaugeUI : MonoBehaviour
 {
     [Header("# Event Channel")]
-    [SerializeField] private JudgmentTypeEventChannel _judgeEvent;
+    [SerializeField] private FlaotEventChannel _tensionChangeEvent;
 
-    [Header("Components")]
-    [SerializeField] private Slider _tensionGauge;
+    private Slider _tensionGauge;
 
-    [Header("Settings")]
-    [SerializeField] private float _maxValue = 100f;
-
-    private float _gauge;
+    private void Awake()
+    {
+        _tensionGauge = GetComponent<Slider>();
+    }
 
     private void OnEnable()
     {
-        _judgeEvent.OnEventRaised += RefreshGauge;
+        _tensionChangeEvent.OnEventRaised += RefreshTensionGauge;
     }
 
     private void OnDisable()
     {
-        _judgeEvent.OnEventRaised -= RefreshGauge;
+        _tensionChangeEvent.OnEventRaised -= RefreshTensionGauge;
     }
 
-    private void RefreshGauge(JudgmentType judgment)
+    private void RefreshTensionGauge(float value)
     {
-        if (judgment == JudgmentType.Perfect)
-        {
-            _gauge += 10;
-        }
-
-        if (judgment == JudgmentType.Great)
-        {
-            _gauge += 5;
-        }
-
-        _tensionGauge.value = _gauge / _maxValue;
-
-        if (_gauge / _maxValue >= 1f)
-        {
-            print("[ 스킬 발동 가능 ]");
-            _tensionGauge.value = 0f;
-        }
+        _tensionGauge.value = value;
     }
+
 }

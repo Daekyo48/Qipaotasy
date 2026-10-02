@@ -4,6 +4,7 @@ public class SkillSystem : MonoBehaviour
 {
     [Header("# Event Channel")]
     [SerializeField] private JudgmentTypeEventChannel _judgeEvent;
+    [SerializeField] private FlaotEventChannel _tensionChangeEvent;
 
     [Header("# Settings")]
     [SerializeField] private float _maxValue = 100f;
@@ -32,6 +33,8 @@ public class SkillSystem : MonoBehaviour
                 _tension += 5;
                 break;
         }
+
+        _tensionChangeEvent.Raise(_tension / _maxValue);
 
         if (_tension / _maxValue >= 1f)
         {
