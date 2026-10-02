@@ -1,7 +1,7 @@
 public enum PoolType
 {
     None,
-    Note
+    Note = 0,
 }
 
 public enum JudgmentType
@@ -10,5 +10,5 @@ public enum JudgmentType
     Perfect,
     Great,
     Good,
-    Miss
+    Miss,
 }

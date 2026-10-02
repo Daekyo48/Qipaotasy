@@ -93,9 +93,39 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             ""id"": ""7609afce-5d5d-46d2-993c-9347b9b88984"",
             ""actions"": [
                 {
-                    ""name"": ""Judge"",
-                    ""type"": ""PassThrough"",
+                    ""name"": ""FirstLane"",
+                    ""type"": ""Button"",
                     ""id"": ""966d7e96-a8d7-4ee5-a014-60b2c0f9a6d5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""SecondLane"",
+                    ""type"": ""Button"",
+                    ""id"": ""a711db80-b55e-4c20-8812-d839a47f2c17"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""ThirdLane"",
+                    ""type"": ""Button"",
+                    ""id"": ""fca90ceb-8907-43da-a854-b723cfeafff0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""FourthLane"",
+                    ""type"": ""Button"",
+                    ""id"": ""beab2296-cd0f-4fef-b021-eabc90fcdbc0"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -111,40 +141,40 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Judge"",
+                    ""action"": ""FirstLane"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""57ff9482-f1e2-4d69-8c7c-802c15f317ed"",
+                    ""id"": ""65eeb8b7-50dc-49c7-8523-f05215239c46"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Judge"",
+                    ""action"": ""SecondLane"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b777b26a-a408-4b1d-b053-a6255eb62a28"",
+                    ""id"": ""67e71c93-2a6d-40cb-8ddf-1363fbdf73ce"",
                     ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Judge"",
+                    ""action"": ""ThirdLane"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""39647ae6-f72a-403d-aaa7-88f9d567607c"",
+                    ""id"": ""a0054060-cdaf-49a9-8953-3a77eb9f4c1c"",
                     ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Judge"",
+                    ""action"": ""FourthLane"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -216,7 +246,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
 }");
         // Game
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
-        m_Game_Judge = m_Game.FindAction("Judge", throwIfNotFound: true);
+        m_Game_FirstLane = m_Game.FindAction("FirstLane", throwIfNotFound: true);
+        m_Game_SecondLane = m_Game.FindAction("SecondLane", throwIfNotFound: true);
+        m_Game_ThirdLane = m_Game.FindAction("ThirdLane", throwIfNotFound: true);
+        m_Game_FourthLane = m_Game.FindAction("FourthLane", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -297,7 +330,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     // Game
     private readonly InputActionMap m_Game;
     private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
-    private readonly InputAction m_Game_Judge;
+    private readonly InputAction m_Game_FirstLane;
+    private readonly InputAction m_Game_SecondLane;
+    private readonly InputAction m_Game_ThirdLane;
+    private readonly InputAction m_Game_FourthLane;
     /// <summary>
     /// Provides access to input actions defined in input action map "Game".
     /// </summary>
@@ -310,9 +346,21 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public GameActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Game/Judge".
+        /// Provides access to the underlying input action "Game/FirstLane".
         /// </summary>
-        public InputAction @Judge => m_Wrapper.m_Game_Judge;
+        public InputAction @FirstLane => m_Wrapper.m_Game_FirstLane;
+        /// <summary>
+        /// Provides access to the underlying input action "Game/SecondLane".
+        /// </summary>
+        public InputAction @SecondLane => m_Wrapper.m_Game_SecondLane;
+        /// <summary>
+        /// Provides access to the underlying input action "Game/ThirdLane".
+        /// </summary>
+        public InputAction @ThirdLane => m_Wrapper.m_Game_ThirdLane;
+        /// <summary>
+        /// Provides access to the underlying input action "Game/FourthLane".
+        /// </summary>
+        public InputAction @FourthLane => m_Wrapper.m_Game_FourthLane;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -339,9 +387,18 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_GameActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_GameActionsCallbackInterfaces.Add(instance);
-            @Judge.started += instance.OnJudge;
-            @Judge.performed += instance.OnJudge;
-            @Judge.canceled += instance.OnJudge;
+            @FirstLane.started += instance.OnFirstLane;
+            @FirstLane.performed += instance.OnFirstLane;
+            @FirstLane.canceled += instance.OnFirstLane;
+            @SecondLane.started += instance.OnSecondLane;
+            @SecondLane.performed += instance.OnSecondLane;
+            @SecondLane.canceled += instance.OnSecondLane;
+            @ThirdLane.started += instance.OnThirdLane;
+            @ThirdLane.performed += instance.OnThirdLane;
+            @ThirdLane.canceled += instance.OnThirdLane;
+            @FourthLane.started += instance.OnFourthLane;
+            @FourthLane.performed += instance.OnFourthLane;
+            @FourthLane.canceled += instance.OnFourthLane;
         }
 
         /// <summary>
@@ -353,9 +410,18 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="GameActions" />
         private void UnregisterCallbacks(IGameActions instance)
         {
-            @Judge.started -= instance.OnJudge;
-            @Judge.performed -= instance.OnJudge;
-            @Judge.canceled -= instance.OnJudge;
+            @FirstLane.started -= instance.OnFirstLane;
+            @FirstLane.performed -= instance.OnFirstLane;
+            @FirstLane.canceled -= instance.OnFirstLane;
+            @SecondLane.started -= instance.OnSecondLane;
+            @SecondLane.performed -= instance.OnSecondLane;
+            @SecondLane.canceled -= instance.OnSecondLane;
+            @ThirdLane.started -= instance.OnThirdLane;
+            @ThirdLane.performed -= instance.OnThirdLane;
+            @ThirdLane.canceled -= instance.OnThirdLane;
+            @FourthLane.started -= instance.OnFourthLane;
+            @FourthLane.performed -= instance.OnFourthLane;
+            @FourthLane.canceled -= instance.OnFourthLane;
         }
 
         /// <summary>
@@ -462,11 +528,32 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     public interface IGameActions
     {
         /// <summary>
-        /// Method invoked when associated input action "Judge" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "FirstLane" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnJudge(InputAction.CallbackContext context);
+        void OnFirstLane(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SecondLane" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSecondLane(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ThirdLane" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnThirdLane(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FourthLane" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFourthLane(InputAction.CallbackContext context);
     }
 }
