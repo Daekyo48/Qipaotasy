@@ -25,22 +25,24 @@ public class JudgmentSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.Instance.JudgeInputEvent += OnJudge;
+        InputManager.Instance.JudgeInputEvent += TryJudge;
     }
 
     private void OnDisable()
     {
-        InputManager.Instance.JudgeInputEvent -= OnJudge;
+        InputManager.Instance.JudgeInputEvent -= TryJudge;
     }
 
     public void RegisterActiveNote(int lane, Note note)
     {
+        note.MissEvent += ProcessJudgment;
+
         _activeNotes[lane].Enqueue(note);
     }
 
-    private void OnJudge(int lane)
+    private void TryJudge(int lane)
     {
-        if (_activeNotes[lane].Count <= 0) return;
+        if (_activeNotes[lane].Count == 0) return;
 
         Note targetNote = _activeNotes[lane].Peek();
         double inputTime = GameManager.Instance.GetCurrentTime();
@@ -49,14 +51,25 @@ public class JudgmentSystem : MonoBehaviour
         JudgmentType judgment = EvaluateJudgment(ms);
         if (judgment != JudgmentType.None)
         {
-            _activeNotes[lane].Dequeue();
-            PoolManager.Instance.Release(PoolType.Note, targetNote.gameObject);
+            targetNote.IsJudged = true;
 
-            _judgeEvent.Raise(judgment);
+            ProcessJudgment(lane, judgment);
 
             // 임시 로그
             Debug.Log($"{judgment}\nJudge Time: {targetNote.Data.JudgeTime}, Input Time: {inputTime}");
         }
+    }
+
+    // 이 저주받은 구조는 조만간 손을 볼 것.
+    private void ProcessJudgment(int lane, JudgmentType judgment)
+    {
+        Note note = _activeNotes[lane].Peek();
+
+        note.MissEvent -= ProcessJudgment;
+        PoolManager.Instance.Release(PoolType.Note, note.gameObject);
+
+        _activeNotes[lane].Dequeue();
+        _judgeEvent.Raise(judgment);
     }
 
     private JudgmentType EvaluateJudgment(double ms)

@@ -131,6 +131,16 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Skill"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a56f394-22c4-43f7-8e87-3250e0783283"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -177,6 +187,90 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""FourthLane"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dcea5504-3b78-4765-aaed-33f9e4922beb"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Obstacle"",
+            ""id"": ""6b853ba1-5df6-49c5-ba60-23c1b74a1146"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""54134af5-9665-494c-98c3-1e731bf51e15"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true,
+                    ""priority"": 0
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""29f8af9a-60a5-4c85-a391-6e9966afd42d"",
+                    ""path"": ""Dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""487e15db-0666-4365-b0a0-58b2625b4115"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""554a1713-a352-40da-b89c-b7f12a4a5958"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""da23800c-f0e7-4019-8c42-e43e8987984f"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""3862e8e6-1099-40da-8d44-577b390988fc"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -250,11 +344,16 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Game_SecondLane = m_Game.FindAction("SecondLane", throwIfNotFound: true);
         m_Game_ThirdLane = m_Game.FindAction("ThirdLane", throwIfNotFound: true);
         m_Game_FourthLane = m_Game.FindAction("FourthLane", throwIfNotFound: true);
+        m_Game_Skill = m_Game.FindAction("Skill", throwIfNotFound: true);
+        // Obstacle
+        m_Obstacle = asset.FindActionMap("Obstacle", throwIfNotFound: true);
+        m_Obstacle_Move = m_Obstacle.FindAction("Move", throwIfNotFound: true);
     }
 
     ~@InputActions()
     {
         UnityEngine.Debug.Assert(!m_Game.enabled, "This will cause a leak and performance issues, InputActions.Game.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Obstacle.enabled, "This will cause a leak and performance issues, InputActions.Obstacle.Disable() has not been called.");
     }
 
     /// <summary>
@@ -334,6 +433,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_SecondLane;
     private readonly InputAction m_Game_ThirdLane;
     private readonly InputAction m_Game_FourthLane;
+    private readonly InputAction m_Game_Skill;
     /// <summary>
     /// Provides access to input actions defined in input action map "Game".
     /// </summary>
@@ -361,6 +461,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Game/FourthLane".
         /// </summary>
         public InputAction @FourthLane => m_Wrapper.m_Game_FourthLane;
+        /// <summary>
+        /// Provides access to the underlying input action "Game/Skill".
+        /// </summary>
+        public InputAction @Skill => m_Wrapper.m_Game_Skill;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -399,6 +503,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @FourthLane.started += instance.OnFourthLane;
             @FourthLane.performed += instance.OnFourthLane;
             @FourthLane.canceled += instance.OnFourthLane;
+            @Skill.started += instance.OnSkill;
+            @Skill.performed += instance.OnSkill;
+            @Skill.canceled += instance.OnSkill;
         }
 
         /// <summary>
@@ -422,6 +529,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @FourthLane.started -= instance.OnFourthLane;
             @FourthLane.performed -= instance.OnFourthLane;
             @FourthLane.canceled -= instance.OnFourthLane;
+            @Skill.started -= instance.OnSkill;
+            @Skill.performed -= instance.OnSkill;
+            @Skill.canceled -= instance.OnSkill;
         }
 
         /// <summary>
@@ -455,6 +565,102 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="GameActions" /> instance referencing this action map.
     /// </summary>
     public GameActions @Game => new GameActions(this);
+
+    // Obstacle
+    private readonly InputActionMap m_Obstacle;
+    private List<IObstacleActions> m_ObstacleActionsCallbackInterfaces = new List<IObstacleActions>();
+    private readonly InputAction m_Obstacle_Move;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Obstacle".
+    /// </summary>
+    public struct ObstacleActions
+    {
+        private @InputActions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public ObstacleActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Obstacle/Move".
+        /// </summary>
+        public InputAction @Move => m_Wrapper.m_Obstacle_Move;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Obstacle; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="ObstacleActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(ObstacleActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="ObstacleActions" />
+        public void AddCallbacks(IObstacleActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ObstacleActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ObstacleActionsCallbackInterfaces.Add(instance);
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="ObstacleActions" />
+        private void UnregisterCallbacks(IObstacleActions instance)
+        {
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="ObstacleActions.UnregisterCallbacks(IObstacleActions)" />.
+        /// </summary>
+        /// <seealso cref="ObstacleActions.UnregisterCallbacks(IObstacleActions)" />
+        public void RemoveCallbacks(IObstacleActions instance)
+        {
+            if (m_Wrapper.m_ObstacleActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="ObstacleActions.AddCallbacks(IObstacleActions)" />
+        /// <seealso cref="ObstacleActions.RemoveCallbacks(IObstacleActions)" />
+        /// <seealso cref="ObstacleActions.UnregisterCallbacks(IObstacleActions)" />
+        public void SetCallbacks(IObstacleActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ObstacleActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ObstacleActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="ObstacleActions" /> instance referencing this action map.
+    /// </summary>
+    public ObstacleActions @Obstacle => new ObstacleActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -555,5 +761,27 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFourthLane(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Skill" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSkill(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Obstacle" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="ObstacleActions.AddCallbacks(IObstacleActions)" />
+    /// <seealso cref="ObstacleActions.RemoveCallbacks(IObstacleActions)" />
+    public interface IObstacleActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMove(InputAction.CallbackContext context);
     }
 }

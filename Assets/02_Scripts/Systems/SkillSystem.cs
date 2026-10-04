@@ -35,10 +35,5 @@ public class SkillSystem : MonoBehaviour
         }
 
         _tensionChangeEvent.Raise(_tension / _maxValue);
-
-        if (_tension / _maxValue >= 1f)
-        {
-            print("[ 스킬 발동 가능 ]");
-        }
     }
 }

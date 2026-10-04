@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
@@ -25,38 +24,18 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         _inputAction.Enable();
-        _inputAction.Game.FirstLane.performed += OnFirstLane;
-        _inputAction.Game.SecondLane.performed += OnSecondLane;
-        _inputAction.Game.ThirdLane.performed += OnThirdLane;
-        _inputAction.Game.FourthLane.performed += OnFourthLane;
+        _inputAction.Game.FirstLane.performed += _ => JudgeInputEvent(0);
+        _inputAction.Game.SecondLane.performed += _ => JudgeInputEvent(1);
+        _inputAction.Game.ThirdLane.performed += _ => JudgeInputEvent(2);
+        _inputAction.Game.FourthLane.performed += _ => JudgeInputEvent(3);
     }
 
     private void OnDisable()
     {
         _inputAction.Disable();
-        _inputAction.Game.FirstLane.performed -= OnFirstLane;
-        _inputAction.Game.SecondLane.performed -= OnSecondLane;
-        _inputAction.Game.ThirdLane.performed -= OnThirdLane;
-        _inputAction.Game.FourthLane.performed -= OnFourthLane;
-    }
-
-    private void OnFirstLane(InputAction.CallbackContext context)
-    {
-        JudgeInputEvent?.Invoke(0);
-    }
-
-    private void OnSecondLane(InputAction.CallbackContext context)
-    {
-        JudgeInputEvent?.Invoke(1);
-    }
-
-    private void OnThirdLane(InputAction.CallbackContext context)
-    {
-        JudgeInputEvent?.Invoke(2);
-    }
-
-    private void OnFourthLane(InputAction.CallbackContext context)
-    {
-        JudgeInputEvent?.Invoke(3);
+        _inputAction.Game.FirstLane.performed -= _ => JudgeInputEvent(0);
+        _inputAction.Game.SecondLane.performed -= _ => JudgeInputEvent(1);
+        _inputAction.Game.ThirdLane.performed -= _ => JudgeInputEvent(2);
+        _inputAction.Game.FourthLane.performed -= _ => JudgeInputEvent(3);
     }
 }
