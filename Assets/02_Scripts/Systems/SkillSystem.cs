@@ -4,7 +4,7 @@ public class SkillSystem : MonoBehaviour
 {
     [Header("# Event Channel")]
     [SerializeField] private JudgmentTypeEventChannel _judgeEvent;
-    [SerializeField] private FlaotEventChannel _tensionChangeEvent;
+    [SerializeField] private FloatEventChannel _tensionChangeEvent;
 
     [Header("# Settings")]
     [SerializeField] private float _maxValue = 100f;
@@ -13,11 +13,15 @@ public class SkillSystem : MonoBehaviour
 
     private void OnEnable()
     {
+        InputManager.Instance.SkillInputEvent += UseSkill;
+
         _judgeEvent.OnEventRaised += UpdateTension;
     }
 
     private void OnDisable()
     {
+        InputManager.Instance.SkillInputEvent -= UseSkill;
+
         _judgeEvent.OnEventRaised -= UpdateTension;
     }
 
@@ -34,6 +38,16 @@ public class SkillSystem : MonoBehaviour
                 break;
         }
 
+        _tensionChangeEvent.Raise(_tension / _maxValue);
+    }
+
+    private void UseSkill()
+    {
+        if (_tension < _maxValue) return;
+
+        print("[ 능력 사용 ]");
+
+        _tension = 0f;
         _tensionChangeEvent.Raise(_tension / _maxValue);
     }
 }
