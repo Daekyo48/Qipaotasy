@@ -42,7 +42,10 @@ public class GameManager : MonoBehaviour
 
     private void MusicStart()
     {
-        _musicStartTime = AudioSettings.dspTime + 0.1;
+        _audioSource.Stop();
+        SceneEffector.Instance.FadeIn(2f);
+
+        _musicStartTime = AudioSettings.dspTime + 2;
         _audioSource.PlayScheduled(_musicStartTime);
     }
 }
