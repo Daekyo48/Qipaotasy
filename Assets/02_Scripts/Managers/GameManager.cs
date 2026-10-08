@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         _audioSource = GetComponent<AudioSource>();
+        _audioSource.Stop();
     }
 
     private void Start()
@@ -42,7 +43,6 @@ public class GameManager : MonoBehaviour
 
     private void MusicStart()
     {
-        _audioSource.Stop();
         SceneEffector.Instance.FadeIn(2f);
 
         _musicStartTime = AudioSettings.dspTime + 2;

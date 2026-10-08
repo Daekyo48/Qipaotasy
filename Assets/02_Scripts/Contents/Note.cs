@@ -32,8 +32,8 @@ public class Note : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        if (IsJudged) return;
+       if (IsJudged) return;
 
-        MissEvent.Invoke(Data.Lane, JudgmentType.Miss);
+       MissEvent.Invoke(Data.Lane, JudgmentType.Miss);
     }
 }
