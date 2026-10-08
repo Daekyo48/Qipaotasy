@@ -17,26 +17,26 @@ MonoBehaviour:
   _offset: 0
   _notes:
   - _lane: 0
-    _judgeTime: 1.5
+    _judgeTime: 1
   - _lane: 0
+    _judgeTime: 1.5
+  - _lane: 1
     _judgeTime: 2
   - _lane: 1
     _judgeTime: 2.5
-  - _lane: 1
+  - _lane: 2
     _judgeTime: 3
   - _lane: 2
     _judgeTime: 3.5
-  - _lane: 2
+  - _lane: 3
     _judgeTime: 4
   - _lane: 3
     _judgeTime: 4.5
-  - _lane: 3
-    _judgeTime: 5
   - _lane: 1
-    _judgeTime: 5.5
+    _judgeTime: 5
   - _lane: 2
-    _judgeTime: 5.5
+    _judgeTime: 5
   - _lane: 0
-    _judgeTime: 6
+    _judgeTime: 5.5
   - _lane: 3
-    _judgeTime: 6
+    _judgeTime: 5.5
