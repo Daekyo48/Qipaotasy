@@ -13,10 +13,13 @@ public class JudgmentSystem : MonoBehaviour
     [SerializeField] private int _goodRange = 100;
     [SerializeField] private int _missRange = 150;
 
+    [SerializeField] private TextController _textController;
+
     private readonly Queue<Note>[] _activeNotes = new Queue<Note>[4];
 
     private void Awake()
     {
+
         for (int i = 0; i < _activeNotes.Length; i++)
         {
             _activeNotes[i] = new Queue<Note>();
@@ -25,51 +28,43 @@ public class JudgmentSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.Instance.JudgeInputEvent += TryJudge;
+        InputManager.Instance.JudgeInputEvent += Judge;
     }
 
     private void OnDisable()
     {
-        InputManager.Instance.JudgeInputEvent -= TryJudge;
+        InputManager.Instance.JudgeInputEvent -= Judge;
+    }
+
+    private void Update()
+    {
+        JudgeMissNotes();
     }
 
     public void RegisterActiveNote(int lane, Note note)
     {
-        note.MissEvent += ProcessJudgment;
-
         _activeNotes[lane].Enqueue(note);
     }
 
-    private void TryJudge(int lane)
+    public void Judge(int Lane)
     {
-        if (_activeNotes[lane].Count == 0) return;
+        if (_activeNotes[Lane].Count <= 0) return;
 
-        Note targetNote = _activeNotes[lane].Peek();
+        Note targetNote = _activeNotes[Lane].Peek();
         double inputTime = GameManager.Instance.GetCurrentTime();
         double ms = Math.Abs(inputTime - targetNote.Data.JudgeTime) * 1000;
 
-        JudgmentType judgment = EvaluateJudgment(ms);
-        if (judgment != JudgmentType.None)
+        JudgmentType result = EvaluateJudgment(ms);
+        if (result != JudgmentType.None)
         {
-            targetNote.IsJudged = true;
-
-            ProcessJudgment(lane, judgment);
+            _activeNotes[Lane].Dequeue();
+            PoolManager.Instance.Release(PoolType.Note, targetNote.gameObject);
 
             // 임시 로그
-            Debug.Log($"{judgment}\nJudge Time: {targetNote.Data.JudgeTime}, Input Time: {inputTime}");
+            Debug.Log($"{result}\nJudge Time: {targetNote.Data.JudgeTime}, Input Time: {inputTime}");
+
+            _textController.ShowJudgment(result);
         }
-    }
-
-    // 이 저주받은 구조는 조만간 손을 볼 것.
-    private void ProcessJudgment(int lane, JudgmentType judgment)
-    {
-        Note note = _activeNotes[lane].Peek();
-
-        note.MissEvent -= ProcessJudgment;
-        PoolManager.Instance.Release(PoolType.Note, note.gameObject);
-
-        _activeNotes[lane].Dequeue();
-        _judgeEvent.Raise(judgment);
     }
 
     private JudgmentType EvaluateJudgment(double ms)
@@ -78,7 +73,37 @@ public class JudgmentSystem : MonoBehaviour
         if (ms <= _greatRange) return JudgmentType.Great;
         if (ms <= _goodRange) return JudgmentType.Good;
         if (ms <= _missRange) return JudgmentType.Miss;
-        
+
         return JudgmentType.None;
+    }
+
+    private void JudgeMissNotes()
+    {
+        double currentTime = GameManager.Instance.GetCurrentTime();
+
+        for (int lane = 0; lane < _activeNotes.Length; lane++)
+        {
+            if (_activeNotes[lane].Count <= 0)
+            {
+                continue;
+            }
+
+            Note targetNote = _activeNotes[lane].Peek();
+
+            double ms = (currentTime - targetNote.Data.JudgeTime) * 1000;
+
+            if (ms > _missRange)
+            {
+                _activeNotes[lane].Dequeue();
+
+                PoolManager.Instance.Release(
+                    PoolType.Note, targetNote.gameObject
+                );
+
+                _textController.ShowJudgment(JudgmentType.Miss);
+
+                //Debug.Log("Miss");
+            }
+        }
     }
 }

@@ -30,10 +30,10 @@ public class Note : MonoBehaviour
         transform.position = Vector3.LerpUnclamped(_spawnPosition, _judgePosition, progress);
     }
 
-    private void OnBecameInvisible()
-    {
-        if (IsJudged) return;
+    //private void OnBecameInvisible()
+    //{
+    //    if (IsJudged) return;
 
-        MissEvent.Invoke(Data.Lane, JudgmentType.Miss);
-    }
+    //    MissEvent.Invoke(Data.Lane, JudgmentType.Miss);
+    //}
 }
