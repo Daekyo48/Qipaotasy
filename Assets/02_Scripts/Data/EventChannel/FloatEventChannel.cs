@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "FloatEventChannel", menuName = "Scriptable Objects/EventChannel/FloatEventChannel")]
-public class FlaotEventChannel : ScriptableObject
+public class FloatEventChannel : ScriptableObject
 {
     public event Action<float> OnEventRaised;
 

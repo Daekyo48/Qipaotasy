@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public class PoolManager : MonoBehaviour
 {
     public static PoolManager Instance { get; private set; }
@@ -11,7 +12,7 @@ public class PoolManager : MonoBehaviour
     [Header("# Settings")]
     [SerializeField] private Transform _rootObject;
 
-    private readonly Dictionary<PoolType, Queue<GameObject>> _pools = new();
+    private Dictionary<PoolType, Queue<GameObject>> _pools;
 
     private void Awake()
     {
@@ -22,6 +23,11 @@ public class PoolManager : MonoBehaviour
         }
         Instance = this;
 
+        _pools = new Dictionary<PoolType, Queue<GameObject>>(_poolData.Length);
+    }
+
+    private void Start()
+    {
         CreatePools();
     }
 
@@ -29,7 +35,7 @@ public class PoolManager : MonoBehaviour
     {
         foreach (PoolData data in _poolData)
         {
-            _pools[data.Type] = new Queue<GameObject>();
+            _pools[data.Type] = new Queue<GameObject>(data.Count);
 
             for (int i = 0; i < data.Count; i++)
             {
