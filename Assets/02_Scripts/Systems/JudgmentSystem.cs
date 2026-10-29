@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class JudgmentSystem : MonoBehaviour
@@ -12,63 +13,62 @@ public class JudgmentSystem : MonoBehaviour
     [SerializeField] private int _goodRange = 100;
     [SerializeField] private int _missRange = 150;
 
-    private GameManager _gameManager;
-    private NoteManager _noteManager;
+    private readonly Queue<Note>[] _activeNotes = new Queue<Note>[4];
 
-    private void Start()
+    private void Awake()
     {
-        _gameManager = GameManager.Instance;
-        _noteManager = NoteManager.Instance;
+        for (int i = 0; i < _activeNotes.Length; i++)
+        {
+            _activeNotes[i] = new Queue<Note>();
+        }
     }
 
     private void OnEnable()
     {
-        InputManager.Instance.LaneJudgmentInput += OnLaneJudgmentInput;
+        InputManager.Instance.JudgeInputEvent += TryJudge;
     }
 
     private void OnDisable()
     {
-        InputManager.Instance.LaneJudgmentInput -= OnLaneJudgmentInput;
+        InputManager.Instance.JudgeInputEvent -= TryJudge;
     }
 
-    private void Update()
+    public void RegisterActiveNote(int lane, Note note)
     {
-        CheckMissedNotes();
+        note.MissEvent += ProcessJudgment;
+
+        _activeNotes[lane].Enqueue(note);
     }
 
-    private void OnLaneJudgmentInput(int lane)
+    private void TryJudge(int lane)
     {
-        if (!_noteManager.TryGetNextNote(lane, out Note nextNote)) return;
+        if (_activeNotes[lane].Count == 0) return;
 
-        double inputTime = _gameManager.CurrentTime;
-        double ms = Math.Abs(inputTime - nextNote.Data.JudgeTime) * 1000;
+        Note targetNote = _activeNotes[lane].Peek();
+        double inputTime = GameManager.Instance.GetCurrentTime();
+        double ms = Math.Abs(inputTime - targetNote.Data.JudgeTime) * 1000;
 
         JudgmentType judgment = EvaluateJudgment(ms);
         if (judgment != JudgmentType.None)
         {
-            CompleteJudgment(lane, judgment);
+            targetNote.IsJudged = true;
+
+            ProcessJudgment(lane, judgment);
 
             // 임시 로그
-            Debug.Log($"{judgment}\nJudge Time: {nextNote.Data.JudgeTime}, Input Time: {inputTime}");
+            Debug.Log($"{judgment}\nJudge Time: {targetNote.Data.JudgeTime}, Input Time: {inputTime}");
         }
     }
 
-    private void CheckMissedNotes()
+    // 이 저주받은 구조는 조만간 손을 볼 것.
+    private void ProcessJudgment(int lane, JudgmentType judgment)
     {
-        double currentTime = _gameManager.CurrentTime;
+        Note note = _activeNotes[lane].Peek();
 
-        for (int i = 0; i < SettingData.LaneCount; i++)
-        {
-            while (_noteManager.TryGetNextNote(i, out Note nextNote) && (currentTime - nextNote.Data.JudgeTime) * 1000 > _missRange * 5)
-            {
-                CompleteJudgment(i, JudgmentType.Miss);
-            }
-        }
-    }
+        note.MissEvent -= ProcessJudgment;
+        PoolManager.Instance.Release(PoolType.Note, note.gameObject);
 
-    private void CompleteJudgment(int lane, JudgmentType judgment)
-    {
-        _noteManager.DespawnNote(lane);
+        _activeNotes[lane].Dequeue();
         _judgeEvent.Raise(judgment);
     }
 
