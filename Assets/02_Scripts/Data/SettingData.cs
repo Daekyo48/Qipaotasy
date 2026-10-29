@@ -9,6 +9,6 @@ public class SettingData : ScriptableObject
     public float Speed
     {
         get => _speed;
-        set => Mathf.Clamp(_speed, 1f, 9f);
+        set => _speed = Mathf.Clamp(value, 2f, 18f);
     }
 }

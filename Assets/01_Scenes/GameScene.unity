@@ -288,6 +288,7 @@ Transform:
   m_Children:
   - {fileID: 1556141322}
   - {fileID: 35286340}
+  - {fileID: 328923960}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &266076867
@@ -307,7 +308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &266076869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,6 +615,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328446971}
   m_CullTransparentMesh: 1
+--- !u!1 &328923959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 328923960}
+  m_Layer: 0
+  m_Name: ObstructionSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &328923960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328923959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 256236282}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &331430544
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,13 +690,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd626e97755f5134daec4ae9424e25bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NoteSpawner
-  _judgement: {fileID: 1556141321}
   _judgePoints:
   - {fileID: 418407452}
   - {fileID: 345917015}
   - {fileID: 1353230990}
   - {fileID: 1021688319}
-  _travelDuration: 15
+  _spawnPositionY: 15
 --- !u!1 &345917014
 GameObject:
   m_ObjectHideFlags: 0

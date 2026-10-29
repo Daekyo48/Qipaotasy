@@ -13,16 +13,26 @@ public class SkillSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.Instance.SkillInputEvent += UseSkill;
+        InputManager.Instance.SkillInput += OnSkillInput;
 
         _judgeEvent.OnEventRaised += UpdateTension;
     }
 
     private void OnDisable()
     {
-        InputManager.Instance.SkillInputEvent -= UseSkill;
+        InputManager.Instance.SkillInput -= OnSkillInput;
 
         _judgeEvent.OnEventRaised -= UpdateTension;
+    }
+
+    private void OnSkillInput()
+    {
+        if (_tension < _maxValue) return;
+
+        print("[ 능력 사용 ]");
+
+        _tension = 0f;
+        _tensionChangeEvent.Raise(_tension / _maxValue);
     }
 
     private void UpdateTension(JudgmentType judgment)
@@ -38,16 +48,6 @@ public class SkillSystem : MonoBehaviour
                 break;
         }
 
-        _tensionChangeEvent.Raise(_tension / _maxValue);
-    }
-
-    private void UseSkill()
-    {
-        if (_tension < _maxValue) return;
-
-        print("[ 능력 사용 ]");
-
-        _tension = 0f;
         _tensionChangeEvent.Raise(_tension / _maxValue);
     }
 }

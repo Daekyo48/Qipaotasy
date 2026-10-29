@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eba8792abbc5b24fa5a6693b5903350, type: 3}
   m_Name: SettingData
   m_EditorClassIdentifier: Assembly-CSharp::SettingData
-  _speed: 9
+  _speed: 6

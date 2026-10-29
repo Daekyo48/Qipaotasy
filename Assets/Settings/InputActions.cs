@@ -141,6 +141,26 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""SpeedDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""ade27ca2-9c2a-459d-a4c4-bc68f5e6a164"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""SpeedUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""347be0cd-5aa3-49e2-b1f2-97161384b821"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -196,6 +216,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Skill"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0210ae47-7031-4013-9309-6a70a10b4fc1"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""SpeedUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""279abf34-f85a-4015-afd8-4396ed357b35"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""SpeedDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -345,6 +387,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Game_ThirdLane = m_Game.FindAction("ThirdLane", throwIfNotFound: true);
         m_Game_FourthLane = m_Game.FindAction("FourthLane", throwIfNotFound: true);
         m_Game_Skill = m_Game.FindAction("Skill", throwIfNotFound: true);
+        m_Game_SpeedDown = m_Game.FindAction("SpeedDown", throwIfNotFound: true);
+        m_Game_SpeedUp = m_Game.FindAction("SpeedUp", throwIfNotFound: true);
         // Obstacle
         m_Obstacle = asset.FindActionMap("Obstacle", throwIfNotFound: true);
         m_Obstacle_Move = m_Obstacle.FindAction("Move", throwIfNotFound: true);
@@ -434,6 +478,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_ThirdLane;
     private readonly InputAction m_Game_FourthLane;
     private readonly InputAction m_Game_Skill;
+    private readonly InputAction m_Game_SpeedDown;
+    private readonly InputAction m_Game_SpeedUp;
     /// <summary>
     /// Provides access to input actions defined in input action map "Game".
     /// </summary>
@@ -465,6 +511,14 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Game/Skill".
         /// </summary>
         public InputAction @Skill => m_Wrapper.m_Game_Skill;
+        /// <summary>
+        /// Provides access to the underlying input action "Game/SpeedDown".
+        /// </summary>
+        public InputAction @SpeedDown => m_Wrapper.m_Game_SpeedDown;
+        /// <summary>
+        /// Provides access to the underlying input action "Game/SpeedUp".
+        /// </summary>
+        public InputAction @SpeedUp => m_Wrapper.m_Game_SpeedUp;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -506,6 +560,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Skill.started += instance.OnSkill;
             @Skill.performed += instance.OnSkill;
             @Skill.canceled += instance.OnSkill;
+            @SpeedDown.started += instance.OnSpeedDown;
+            @SpeedDown.performed += instance.OnSpeedDown;
+            @SpeedDown.canceled += instance.OnSpeedDown;
+            @SpeedUp.started += instance.OnSpeedUp;
+            @SpeedUp.performed += instance.OnSpeedUp;
+            @SpeedUp.canceled += instance.OnSpeedUp;
         }
 
         /// <summary>
@@ -532,6 +592,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Skill.started -= instance.OnSkill;
             @Skill.performed -= instance.OnSkill;
             @Skill.canceled -= instance.OnSkill;
+            @SpeedDown.started -= instance.OnSpeedDown;
+            @SpeedDown.performed -= instance.OnSpeedDown;
+            @SpeedDown.canceled -= instance.OnSpeedDown;
+            @SpeedUp.started -= instance.OnSpeedUp;
+            @SpeedUp.performed -= instance.OnSpeedUp;
+            @SpeedUp.canceled -= instance.OnSpeedUp;
         }
 
         /// <summary>
@@ -768,6 +834,20 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSkill(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SpeedDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSpeedDown(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SpeedUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSpeedUp(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Obstacle" which allows adding and removing callbacks.

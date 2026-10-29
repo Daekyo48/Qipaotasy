@@ -23,12 +23,12 @@ public class JudgmentSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.Instance.JudgeInputEvent += OnJudgeInput;
+        InputManager.Instance.LaneJudgmentInput += OnLaneJudgmentInput;
     }
 
     private void OnDisable()
     {
-        InputManager.Instance.JudgeInputEvent -= OnJudgeInput;
+        InputManager.Instance.LaneJudgmentInput -= OnLaneJudgmentInput;
     }
 
     private void Update()
@@ -36,7 +36,7 @@ public class JudgmentSystem : MonoBehaviour
         CheckMissedNotes();
     }
 
-    private void OnJudgeInput(int lane)
+    private void OnLaneJudgmentInput(int lane)
     {
         if (!_noteManager.TryGetNextNote(lane, out Note nextNote)) return;
 
@@ -59,7 +59,7 @@ public class JudgmentSystem : MonoBehaviour
 
         for (int i = 0; i < SettingData.LaneCount; i++)
         {
-            while (_noteManager.TryGetNextNote(i, out Note nextNote) && (currentTime - nextNote.Data.JudgeTime) * 1000 > _missRange)
+            while (_noteManager.TryGetNextNote(i, out Note nextNote) && (currentTime - nextNote.Data.JudgeTime) * 1000 > _missRange * 5)
             {
                 CompleteJudgment(i, JudgmentType.Miss);
             }
@@ -68,7 +68,7 @@ public class JudgmentSystem : MonoBehaviour
 
     private void CompleteJudgment(int lane, JudgmentType judgment)
     {
-        _noteManager.ReleaseNote(lane);
+        _noteManager.DespawnNote(lane);
         _judgeEvent.Raise(judgment);
     }
 

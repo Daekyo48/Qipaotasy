@@ -16,27 +16,249 @@ MonoBehaviour:
   _bpm: 120
   _offset: 0
   _notes:
-  - _lane: 0
-    _judgeTime: 1.5
-  - _lane: 0
-    _judgeTime: 2
-  - _lane: 1
-    _judgeTime: 2.5
-  - _lane: 1
-    _judgeTime: 3
-  - _lane: 2
-    _judgeTime: 3.5
-  - _lane: 2
-    _judgeTime: 4
-  - _lane: 3
-    _judgeTime: 4.5
-  - _lane: 3
-    _judgeTime: 5
-  - _lane: 1
-    _judgeTime: 5.5
-  - _lane: 2
-    _judgeTime: 5.5
-  - _lane: 0
-    _judgeTime: 6
-  - _lane: 3
-    _judgeTime: 6
+    - _lane: 0
+      _judgeTime: 1.5
+    - _lane: 0
+      _judgeTime: 2
+    - _lane: 1
+      _judgeTime: 2.5
+    - _lane: 1
+      _judgeTime: 3
+    - _lane: 2
+      _judgeTime: 3.5
+    - _lane: 2
+      _judgeTime: 4
+    - _lane: 3
+      _judgeTime: 4.5
+    - _lane: 3
+      _judgeTime: 5
+    - _lane: 0
+      _judgeTime: 5.5
+    - _lane: 3
+      _judgeTime: 5.5
+    - _lane: 1
+      _judgeTime: 6
+    - _lane: 2
+      _judgeTime: 6
+    - _lane: 0
+      _judgeTime: 6.5
+    - _lane: 3
+      _judgeTime: 6.5
+    - _lane: 1
+      _judgeTime: 7
+    - _lane: 2
+      _judgeTime: 7
+    - _lane: 0
+      _judgeTime: 7.5
+    - _lane: 1
+      _judgeTime: 7.5
+    - _lane: 1
+      _judgeTime: 8
+    - _lane: 2
+      _judgeTime: 8
+    - _lane: 2
+      _judgeTime: 8.5
+    - _lane: 3
+      _judgeTime: 8.5
+    - _lane: 1
+      _judgeTime: 9
+    - _lane: 2
+      _judgeTime: 9
+    - _lane: 0
+      _judgeTime: 9.5
+    - _lane: 3
+      _judgeTime: 9.5
+    - _lane: 0
+      _judgeTime: 10
+    - _lane: 1
+      _judgeTime: 10
+    - _lane: 1
+      _judgeTime: 10.5
+    - _lane: 2
+      _judgeTime: 10.5
+    - _lane: 2
+      _judgeTime: 11
+    - _lane: 3
+      _judgeTime: 11
+    - _lane: 1
+      _judgeTime: 11.5
+    - _lane: 2
+      _judgeTime: 11.5
+    - _lane: 0
+      _judgeTime: 12
+    - _lane: 3
+      _judgeTime: 12
+    - _lane: 1
+      _judgeTime: 12.5
+    - _lane: 2
+      _judgeTime: 12.5
+    - _lane: 0
+      _judgeTime: 13
+    - _lane: 0
+      _judgeTime: 13.5
+    - _lane: 1
+      _judgeTime: 14
+    - _lane: 1
+      _judgeTime: 14.5
+    - _lane: 2
+      _judgeTime: 15
+    - _lane: 2
+      _judgeTime: 15.5
+    - _lane: 3
+      _judgeTime: 16
+    - _lane: 3
+      _judgeTime: 16.5
+    - _lane: 0
+      _judgeTime: 17
+    - _lane: 3
+      _judgeTime: 17
+    - _lane: 1
+      _judgeTime: 17.5
+    - _lane: 2
+      _judgeTime: 17.5
+    - _lane: 0
+      _judgeTime: 18
+    - _lane: 3
+      _judgeTime: 18
+    - _lane: 1
+      _judgeTime: 18.5
+    - _lane: 2
+      _judgeTime: 18.5
+    - _lane: 0
+      _judgeTime: 19
+    - _lane: 1
+      _judgeTime: 19
+    - _lane: 1
+      _judgeTime: 19.5
+    - _lane: 2
+      _judgeTime: 19.5
+    - _lane: 2
+      _judgeTime: 20
+    - _lane: 3
+      _judgeTime: 20
+    - _lane: 1
+      _judgeTime: 20.5
+    - _lane: 2
+      _judgeTime: 20.5
+    - _lane: 0
+      _judgeTime: 21
+    - _lane: 3
+      _judgeTime: 21
+    - _lane: 1
+      _judgeTime: 21.5
+    - _lane: 2
+      _judgeTime: 21.5
+    - _lane: 0
+      _judgeTime: 22
+    - _lane: 0
+      _judgeTime: 22.5
+    - _lane: 1
+      _judgeTime: 23
+    - _lane: 1
+      _judgeTime: 23.5
+    - _lane: 2
+      _judgeTime: 24
+    - _lane: 2
+      _judgeTime: 24.5
+    - _lane: 3
+      _judgeTime: 25
+    - _lane: 3
+      _judgeTime: 25.5
+    - _lane: 0
+      _judgeTime: 26
+    - _lane: 3
+      _judgeTime: 26
+    - _lane: 1
+      _judgeTime: 26.5
+    - _lane: 2
+      _judgeTime: 26.5
+    - _lane: 0
+      _judgeTime: 27
+    - _lane: 3
+      _judgeTime: 27
+    - _lane: 1
+      _judgeTime: 27.5
+    - _lane: 2
+      _judgeTime: 27.5
+    - _lane: 0
+      _judgeTime: 28
+    - _lane: 1
+      _judgeTime: 28
+    - _lane: 1
+      _judgeTime: 28.5
+    - _lane: 2
+      _judgeTime: 28.5
+    - _lane: 2
+      _judgeTime: 29
+    - _lane: 3
+      _judgeTime: 29
+    - _lane: 1
+      _judgeTime: 29.5
+    - _lane: 2
+      _judgeTime: 29.5
+    - _lane: 0
+      _judgeTime: 30
+    - _lane: 3
+      _judgeTime: 30
+    - _lane: 1
+      _judgeTime: 30.5
+    - _lane: 2
+      _judgeTime: 30.5
+    - _lane: 0
+      _judgeTime: 31
+    - _lane: 0
+      _judgeTime: 31.5
+    - _lane: 1
+      _judgeTime: 32
+    - _lane: 1
+      _judgeTime: 32.5
+    - _lane: 2
+      _judgeTime: 33
+    - _lane: 2
+      _judgeTime: 33.5
+    - _lane: 3
+      _judgeTime: 34
+    - _lane: 3
+      _judgeTime: 34.5
+    - _lane: 0
+      _judgeTime: 35
+    - _lane: 3
+      _judgeTime: 35
+    - _lane: 1
+      _judgeTime: 35.5
+    - _lane: 2
+      _judgeTime: 35.5
+    - _lane: 0
+      _judgeTime: 36
+    - _lane: 3
+      _judgeTime: 36
+    - _lane: 1
+      _judgeTime: 36.5
+    - _lane: 2
+      _judgeTime: 36.5
+    - _lane: 0
+      _judgeTime: 37
+    - _lane: 1
+      _judgeTime: 37
+    - _lane: 1
+      _judgeTime: 37.5
+    - _lane: 2
+      _judgeTime: 37.5
+    - _lane: 2
+      _judgeTime: 38
+    - _lane: 3
+      _judgeTime: 38
+    - _lane: 1
+      _judgeTime: 38.5
+    - _lane: 2
+      _judgeTime: 38.5
+    - _lane: 0
+      _judgeTime: 39
+    - _lane: 3
+      _judgeTime: 39
+    - _lane: 1
+      _judgeTime: 39.5
+    - _lane: 2
+      _judgeTime: 39.5
+    - _lane: 0
+      _judgeTime: 40

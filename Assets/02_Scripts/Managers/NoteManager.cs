@@ -6,12 +6,9 @@ public class NoteManager : MonoBehaviour
 {
     public static NoteManager Instance { get; private set; }
 
-    [Header("# References")]
-    [SerializeField] private JudgmentSystem _judgement;
-
     [Header("# Settings")]
     [SerializeField] private Transform[] _judgePoints;
-    [SerializeField] private float _travelDuration = 1.5f;
+    [SerializeField] private float _spawnPositionY;
 
     private GameManager _gameManager;
     private PoolManager _poolManager;
@@ -35,7 +32,6 @@ public class NoteManager : MonoBehaviour
         _poolManager = PoolManager.Instance;
 
         _pendingNotes = new Queue<NoteData>(_gameManager.MusicData.Notes);
-
         _activeNotes = new Queue<Note>[SettingData.LaneCount];
         for (int i = 0; i < _activeNotes.Length; i++)
         {
@@ -46,8 +42,9 @@ public class NoteManager : MonoBehaviour
     private void Update()
     {
         double currentTime = _gameManager.CurrentTime;
+        double leadTime = _spawnPositionY / _gameManager.SettingData.Speed;
 
-        while (_pendingNotes.TryPeek(out NoteData note) && note.JudgeTime - _travelDuration <= currentTime)
+        while (_pendingNotes.TryPeek(out NoteData note) && note.JudgeTime - leadTime <= currentTime)
         {
             SpawnNote(_pendingNotes.Dequeue(), currentTime);
         }
@@ -66,10 +63,9 @@ public class NoteManager : MonoBehaviour
         return _activeNotes[lane].TryPeek(out note);
     }
 
-    public void ReleaseNote(int lane)
+    public void DespawnNote(int lane)
     {
         Note note = _activeNotes[lane].Dequeue();
-
         _poolManager.Release(PoolType.Note, note.gameObject);
     }
 
