@@ -75,11 +75,11 @@ public class InputManager : MonoBehaviour
 
     private void OnSpeedDown(InputAction.CallbackContext _)
     {
-        GameManager.Instance.SettingData.Speed -= 2f;
+        GameManager.Instance.SettingData.UserSpeed -= 2f;
     }
 
     private void OnSpeedUp(InputAction.CallbackContext _)
     {
-        GameManager.Instance.SettingData.Speed += 2f;
+        GameManager.Instance.SettingData.UserSpeed += 2f;
     }
 }
