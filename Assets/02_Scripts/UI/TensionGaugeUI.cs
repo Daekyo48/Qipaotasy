@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class TensionGaugeUI : MonoBehaviour
 {
     [Header("# Event Channel")]
-    [SerializeField] private FloatEventChannel _tensionChangeEvent;
+    [SerializeField] private FlaotEventChannel _tensionChangeEvent;
 
     private Slider _tensionGauge;
 
