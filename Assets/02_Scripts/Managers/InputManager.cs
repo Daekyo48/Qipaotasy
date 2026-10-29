@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [DefaultExecutionOrder(-10)]
 public class InputManager : MonoBehaviour
